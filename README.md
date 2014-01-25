@@ -15,7 +15,6 @@ Set the app in the INSALLED_APPS settings.py variable.
 
 ```python
 INSTALLED_APPS = '... twython ...'
-
 ```
 
 And then set some parameters in the settings.py.
