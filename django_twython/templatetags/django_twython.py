@@ -32,4 +32,6 @@ class TwitterTimelineNode(template.Node):
 
 @register.tag
 def twitter_user_timeline(parser, token):
+    nodelist = parser.parse(('end_twitter_user_timeline'))
+    parser.delete_first_token()
     return TwitterTimelineNode(token.split_contents())
