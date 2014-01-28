@@ -24,5 +24,23 @@ TWITTER_CONSUMER_KEY = '...'
 TWITTER_CONSUMER_SECRET = '...'
 TWITTER_ACCESS_TOKEN = '...'
 TWITTER_ACCESS_TOKEN_SECRET = '...'
+```
 
+Use it
+------
+First include the tag library:
+```
+{% load django_twython %}
+```
+
+Then call the tag in a template, like this for example:
+```
+{% twitter_user_timeline <username> <number-of-post-to-show> %}
+	{% for twit in timeline %}
+		<div class="twit">
+			<p>
+				{{twit.text|safe}}
+			</p>
+		</div>
+	{% endfor %}
 ```

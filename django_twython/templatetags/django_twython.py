@@ -22,9 +22,9 @@ class TwitterTimelineNode(template.Node):
                                )
     def render(self, context):
         timeline = self.twitter.get_user_timeline(
-                                                  screen_name=self.username,
-                                                  count=self.count
-                                                  )
+            screen_name=self.username,
+            count=self.count
+        )
         
         context['timeline'] = timeline
         
@@ -32,6 +32,5 @@ class TwitterTimelineNode(template.Node):
 
 @register.tag
 def twitter_user_timeline(parser, token):
-    nodelist = parser.parse(('end_twitter_user_timeline'))
-    parser.delete_first_token()
     return TwitterTimelineNode(token.split_contents())
+    
