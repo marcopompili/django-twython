@@ -11,6 +11,7 @@ from django import template
 register = template.Library()
 
 class TwitterTimelineNode(template.Node):
+    
     def __init__(self, args):
         self.username = args[1]
         self.count = args[2]
@@ -32,5 +33,11 @@ class TwitterTimelineNode(template.Node):
 
 @register.tag
 def twitter_user_timeline(parser, token):
+    """
+        User Time-line tag.
+        
+        Usage::
+            {% twitter_user_timeline <twitter-username> <number-of-twits> %}
+    """
     return TwitterTimelineNode(token.split_contents())
     
