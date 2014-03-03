@@ -6,6 +6,7 @@ Created on 14/giu/2013
 
 from twython import Twython
 from django.conf import settings
+from twython import exceptions 
 from django import template
 
 register = template.Library()
@@ -21,15 +22,19 @@ class TwitterTimelineNode(template.Node):
                                settings.TWITTER_ACCESS_TOKEN,
                                settings.TWITTER_ACCESS_TOKEN_SECRET
                                )
+    
     def render(self, context):
-        timeline = self.twitter.get_user_timeline(
-            screen_name=self.username,
-            count=self.count
-        )
+        try:
+            timeline = self.twitter.get_user_timeline(
+                                                      screen_name=self.username,
+                                                      count=self.count
+                                                      )
         
-        context['timeline'] = timeline
+            context['timeline'] = timeline
         
-        return ''
+            return ''
+        except exceptions.TwythonError as e:
+            print("Django Twython Error: %s" %e)
 
 @register.tag
 def twitter_user_timeline(parser, token):
