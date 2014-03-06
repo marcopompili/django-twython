@@ -37,7 +37,7 @@ class TwitterTimelineNode(template.Node):
             print("Django Twython Error: %s" %e)
 
 @register.tag
-def twitter_user_timeline(parser, token):
+def twitter_user_timeline_data(parser, token):
     """
         User Time-line tag.
         
@@ -45,4 +45,17 @@ def twitter_user_timeline(parser, token):
             {% twitter_user_timeline <twitter-username> <number-of-twits> %}
     """
     return TwitterTimelineNode(token.split_contents())
+
+
+@register.inclusion_tag('django_twython/timeline.html')
+def twitter_user_timeline(user, *args, **kwargs):
+    api = Twython(
+                  settings.TWITTER_CONSUMER_KEY,
+                  settings.TWITTER_CONSUMER_SECRET,
+                  settings.TWITTER_ACCESS_TOKEN,
+                  settings.TWITTER_ACCESS_TOKEN_SECRET
+    )
     
+    timeline = api.get_user_timeline(screen_name=user, count=kwargs.get('count', '5'))
+    
+    return { 'timeline' : timeline }

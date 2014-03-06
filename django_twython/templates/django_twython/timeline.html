@@ -1,0 +1,11 @@
+{% for twit in timeline %}
+	{{ twit }}
+	<div class="twit">
+		<p>
+			<a href="http://twitter.com/{{twit.user.screen_name}}" target="_blank">
+				<img src="{{ twit.user.profile_image_url }}"/>
+			</a>
+			{{ twit.text }}
+		</p>
+	</div>
+{% endfor %}
