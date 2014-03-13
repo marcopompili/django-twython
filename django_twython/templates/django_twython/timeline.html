@@ -1,5 +1,5 @@
 {% for twit in timeline %}
-	<div class="twit">
+	<div class="twit row">
 		{% if twit.retweet_count > 0 %}
 			{% with post=twit.retweeted_status %}
 				{% include "django_twython/twit.html" %}
