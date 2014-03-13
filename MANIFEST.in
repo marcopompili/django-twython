@@ -1,4 +1,6 @@
 include LICENSE
 include README.rst
 include README.md
+recursive-include django_twython/static *
+recursive-include django_twython/templates *
 recursive-include docs *

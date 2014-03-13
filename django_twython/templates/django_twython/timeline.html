@@ -1,11 +1,13 @@
 {% for twit in timeline %}
-	{{ twit }}
 	<div class="twit">
-		<p>
-			<a href="http://twitter.com/{{twit.user.screen_name}}" target="_blank">
-				<img src="{{ twit.user.profile_image_url }}"/>
-			</a>
-			{{ twit.text }}
-		</p>
+		{% if twit.retweet_count > 0 %}
+			{% with post=twit.retweeted_status %}
+				{% include "django_twython/twit.html" %}
+			{% endwith %}
+		{% else %}
+			{% with post=twit %}
+				{% include "django_twython/twit.html" %}
+			{% endwith %}
+		{% endif %}
 	</div>
 {% endfor %}
