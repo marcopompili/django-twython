@@ -1,8 +1,8 @@
-'''
+"""
 Created on 24/gen/2014
 
 @author: Marco Pompili
-'''
+"""
 
 import os
 from setuptools import setup
@@ -22,6 +22,7 @@ setup(
       url='https://github.com/marcopompili/django-twython',
       author='Marco Pompili',
       author_email='marcs@emarcs.org',
+      install_requires=['django', 'twython'],
       classifiers=[
             'Environment :: Web Environment',
             'Framework :: Django',
