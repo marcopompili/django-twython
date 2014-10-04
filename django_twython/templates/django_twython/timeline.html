@@ -1,13 +1,5 @@
-{% for twit in timeline %}
-	<div class="twit row">
-		{% if twit.retweet_count > 0 %}
-			{% with post=twit.retweeted_status %}
-				{% include "django_twython/twit.html" %}
-			{% endwith %}
-		{% else %}
-			{% with post=twit %}
-				{% include "django_twython/twit.html" %}
-			{% endwith %}
-		{% endif %}
-	</div>
-{% endfor %}
+<ul id="timeline" class="list-unstyled">
+    {% for twit in timeline %}
+        {% include "django_twython/twit.html" %}
+    {% endfor %}
+</ul>
