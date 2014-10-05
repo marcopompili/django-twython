@@ -14,17 +14,21 @@ from twython import exceptions
 register = template.Library()
 
 
+def twython_get_api():
+    return Twython(
+        settings.TWITTER_CONSUMER_KEY,
+        settings.TWITTER_CONSUMER_SECRET,
+        settings.TWITTER_ACCESS_TOKEN,
+        settings.TWITTER_ACCESS_TOKEN_SECRET
+    )
+
+
 class TwitterTimelineNode(template.Node):
     def __init__(self, args):
         self.username = args[1]
         self.count = args[2]
 
-        self.twitter = Twython(
-            settings.TWITTER_CONSUMER_KEY,
-            settings.TWITTER_CONSUMER_SECRET,
-            settings.TWITTER_ACCESS_TOKEN,
-            settings.TWITTER_ACCESS_TOKEN_SECRET
-        )
+        self.twitter = twython_get_api()
 
     def render(self, context):
         try:
@@ -54,14 +58,12 @@ def twitter_user_timeline_data(parser, token):
 @register.inclusion_tag('django_twython/timeline.html')
 def twitter_user_timeline(user, *args, **kwargs):
     try:
-        api = Twython(
-            settings.TWITTER_CONSUMER_KEY,
-            settings.TWITTER_CONSUMER_SECRET,
-            settings.TWITTER_ACCESS_TOKEN,
-            settings.TWITTER_ACCESS_TOKEN_SECRET
-        )
+        api = twython_get_api()
 
-        timeline = api.get_user_timeline(screen_name=user, count=kwargs.get('count', '5'))
+        timeline = api.get_user_timeline(
+            screen_name=user,
+            count=kwargs.get('count', '5')
+        )
 
         return {
             'timeline': timeline
