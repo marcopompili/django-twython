@@ -4,8 +4,11 @@ Created on 14/giu/2013
 @author: Marco Pompili
 """
 
+import datetime
+
 from django.conf import settings
 from django.utils.safestring import mark_safe
+from django.utils.translation import ugettext_lazy as _
 from django import template
 
 from twython import Twython
@@ -83,4 +86,17 @@ def twython_html_for_twit(value):
     :param value: The twit
     :return:
     """
-    return mark_safe(Twython.html_for_tweet(value));
+    return mark_safe(Twython.html_for_tweet(value))
+
+
+@register.filter(name='twitter_date_format')
+def twitter_date_format(value):
+    """
+
+    :param value:
+    :return:
+    """
+    created_ad = datetime.datetime.strptime(value, "%a %b %d %H:%M:%S +0000 %Y")
+    now = datetime.datetime.now()
+
+    return (now - created_ad).days

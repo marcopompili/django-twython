@@ -1,10 +1,13 @@
-{% load django_twython %}
+{% load i18n django_twython %}
 
-<li class="twit text-center">
-    <a href="http://twitter.com/{{twit.user.screen_name}}" target="_blank" class="twit_profile_image_url">
+<li class="twit">
+    <a href="http://twitter.com/{{twit.user.screen_name}}" target="_blank" class="profile_image_url">
         <img src="{{ twit.user.profile_image_url }}"/>
     </a>
-    <p class="twit_text">
-        {{ twit|html_for_tweet }}
-    </p>
+    <div class="text">
+        <p>
+            {{ twit|html_for_tweet }}
+            <span class="date">{{ twit.created_at|twitter_date_format }} {% trans "days ago" %}</span>
+        </p>
+    </div>
 </li>

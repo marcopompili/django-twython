@@ -1,3 +1,10 @@
-.twit_user_name {
-    display: block
+.twit {
+    margin-top: 15px
+}
+
+.twit .date {
+    font-family: serif;
+    font-weight: bold;
+    font-style: italic;
+    display: block;
 }
